@@ -1,0 +1,6 @@
+SET @HOUR = -1;
+SELECT (@HOUR := @HOUR+1) AS HOUR, 
+(SELECT COUNT(*) FROM ANIMAL_OUTS WHERE HOUR(DATETIME) = @HOUR) AS COUNT 
+FROM ANIMAL_OUTS WHERE @HOUR < 23 GROUP BY @HOUR ORDER BY @HOUR ASC
+
+기존의 방식으로 하면 7~19까지의 시간 밖에 나오지 않기 때문에 0~23까지의 시간을 얻기 위해서는 SET을 활용해서 변수를 생성해준 후 위와 같이 진행해야함
